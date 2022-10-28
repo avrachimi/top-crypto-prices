@@ -30,10 +30,15 @@ body {
   padding-left: 1em;
   margin: 0;
 }
-.navbar .container .mobile-github-cta {
-  padding-right: 1em;
+.navbar .container .mobile-github-cta > img {
   width: 1.5em;
   height: 1.5em;
+  padding-right: 1em;
+}
+.navbar .container .mobile-github-cta {
+  display: inherit;
+  padding: 0;
+  margin: 0;
 }
 
 .github-cta {
@@ -105,12 +110,12 @@ section.main-content .container .row:after {
 }
 
 @media only screen and (min-width: 700px) {
-  .mobile-github-cta {
+  .navbar .container .mobile-github-cta {
     display: none;
   }
   .github-cta {
     color: white;
-    display: inline-block;
+    display: inherit;
     text-decoration: none;
     padding: 0.1em 0.6em;
     margin-right: 1em;

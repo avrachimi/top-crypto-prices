@@ -32,13 +32,18 @@ body {
             margin: 0;
         }
 
-        .mobile-github-cta {
-            padding-right: 1em;
+        .mobile-github-cta > img{
             width: 1.5em;
             height: 1.5em;
+            padding-right: 1em;
+        }
+        
+        .mobile-github-cta{
+            display: inherit;
+            padding: 0;
+            margin: 0;
 
         }
-
 
     }
 
@@ -126,13 +131,20 @@ section.main-content {
 }
 
 @media only screen and (min-width: 700px) {
-    .mobile-github-cta {
-        display: none;
+    .navbar {
+        .container {
+            
+            .mobile-github-cta{
+                display: none;
+            }
+    
+        }
+    
     }
 
     .github-cta {
         color: white;
-        display: inline-block;
+        display: inherit;
         text-decoration: none;
         padding: .1em .6em;
         margin-right: 1em;

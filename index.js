@@ -2,12 +2,17 @@ const mktCapFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 0,
-  });
+});
 
-  const priceFormatter = new Intl.NumberFormat('en-US', {
+const priceFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  });
+});
+
+// Update data every 30 seconds
+const interval = setInterval(function () {
+    fetchData();
+}, 60000);
 
 const API_BASE_URL = 'https://api.coingecko.com/api/v3/';
 
@@ -22,18 +27,21 @@ const options = {
     }
 };
 
-fetch(`${API_BASE_URL}/coins/markets?vs_currency=${vs_currency}&order=${order}&per_page=${per_page}`, options)
-    .then((response) => response.json())
-    .then((data) => populateCryptoDetails(data));
+function fetchData() {
+    fetch(`${API_BASE_URL}/coins/markets?vs_currency=${vs_currency}&order=${order}&per_page=${per_page}`, options)
+        .then((response) => response.json())
+        .then((data) => populateCryptoDetails(data));
+}
 
 function populateCryptoDetails(data) {
     let cryptoList = document.getElementById('crypto-list');
+    cryptoList.innerHTML = '';
 
     let counter = 1;
     data.forEach(coin => {
         let parentDiv = document.createElement('div');
         parentDiv.className = 'list-item row';
-    
+
         let number = document.createElement('span');
         number.className = 'number';
         number.innerHTML = counter;
@@ -54,16 +62,18 @@ function populateCryptoDetails(data) {
         let price = document.createElement('span');
         price.className = 'price';
         price.innerHTML = `${priceFormatter.format(coin.current_price)}`;
-    
+
         parentDiv.appendChild(number);
         parentDiv.appendChild(name);
         parentDiv.appendChild(change_24h);
         parentDiv.appendChild(mktCap);
         parentDiv.appendChild(ATHPercentage);
         parentDiv.appendChild(price);
-    
+
         cryptoList.appendChild(parentDiv);
 
         counter++;
     });
 }
+
+fetchData();
